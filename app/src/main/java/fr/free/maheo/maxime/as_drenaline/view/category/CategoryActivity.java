@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import fr.free.maheo.maxime.as_drenaline.R;
+import fr.free.maheo.maxime.as_drenaline.data.source.category.Injection;
 import fr.free.maheo.maxime.as_drenaline.util.ActivityUtil;
 
 public class CategoryActivity extends AppCompatActivity {
@@ -23,7 +24,7 @@ public class CategoryActivity extends AppCompatActivity {
             ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), categoryFragment, R.id.fragment_category);
         }
 
-        presenter = new CategoryPresenter(categoryFragment);
+        presenter = new CategoryPresenter(categoryFragment, Injection.provideSchedulerProvider(), Injection.provideCategoryRepository());
 
         categoryFragment.setPresenter(presenter);
     }

@@ -1,5 +1,12 @@
 package fr.free.maheo.maxime.as_drenaline.view.category;
 
+import android.util.Log;
+
+import java.util.List;
+
+import fr.free.maheo.maxime.as_drenaline.data.model.Category;
+import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryDataSource;
+import fr.free.maheo.maxime.as_drenaline.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -12,8 +19,14 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
     private CompositeDisposable subscription;
 
-    public CategoryPresenter(CategoryContract.View view) {
+    private BaseSchedulerProvider schedulerProvider;
+
+    private CategoryDataSource categoryDataSource;
+
+    public CategoryPresenter(CategoryContract.View view, BaseSchedulerProvider baseSchedulerProvider, CategoryDataSource categoryDataSource) {
         this.view = view;
+        this.schedulerProvider = baseSchedulerProvider;
+        this.categoryDataSource = categoryDataSource;
 
         subscription = new CompositeDisposable();
         view.setPresenter(this);
@@ -21,7 +34,16 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
     @Override
     public void subscribe() {
+        view.startLoadingIndicator();
 
+        subscription.add(categoryDataSource
+        .getCategories()
+        .subscribeOn(schedulerProvider.computation())
+        .observeOn(schedulerProvider.ui())
+        .subscribe(
+                this::onNext,
+                this::onError
+        ));
     }
 
     @Override
@@ -29,4 +51,17 @@ public class CategoryPresenter implements CategoryContract.Presenter {
         subscription.clear();
     }
 
+    @Override
+    public void onNext(List<Category> categories) {
+        view.stopLoadingIndicator();
+
+        view.setCategories(categories);
+    }
+
+    @Override
+    public void onError(Throwable error) {
+        view.stopLoadingIndicator();
+
+        view.error();
+    }
 }
