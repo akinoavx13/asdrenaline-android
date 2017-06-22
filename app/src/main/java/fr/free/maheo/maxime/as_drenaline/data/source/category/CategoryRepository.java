@@ -1,11 +1,15 @@
 package fr.free.maheo.maxime.as_drenaline.data.source.category;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.free.maheo.maxime.as_drenaline.data.model.Category;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
+import io.reactivex.internal.operators.completable.CompletableAmb;
 
 /**
  * Created by mmaheo on 21/06/2017.
@@ -36,4 +40,5 @@ public class CategoryRepository implements CategoryDataSource {
     private Observable<List<Category>> getRemoteCategories() {
         return remoteDataSource.getCategories();
     }
+
 }

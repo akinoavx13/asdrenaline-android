@@ -1,17 +1,33 @@
 package fr.free.maheo.maxime.as_drenaline.view.category;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.Call;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.free.maheo.maxime.as_drenaline.R;
 import fr.free.maheo.maxime.as_drenaline.data.model.Category;
+import fr.free.maheo.maxime.as_drenaline.util.AndroidApplication;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
 /**
  * Created by mmaheo on 21/06/2017.
@@ -23,6 +39,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         @BindView(R.id.category_title)
         TextView categoryTitle;
+
+        @BindView(R.id.category_background)
+        ImageView categoryBackground;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
@@ -49,6 +68,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
         Category category = categories.get(position);
         holder.categoryTitle.setText(category.getName());
+
+        Glide.with(AndroidApplication.getAppContext())
+                .load(category.getImageUrl())
+                .into(holder.categoryBackground);
     }
 
     @Override

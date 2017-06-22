@@ -1,6 +1,9 @@
 package fr.free.maheo.maxime.as_drenaline.data.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.InputStream;
 
 /**
  * Created by mmaheo on 21/06/2017.
@@ -8,9 +11,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class Category {
 
+    @Expose
     @SerializedName("name")
     private String name;
 
+    @Expose
     @SerializedName("image")
     private String imageUrl;
 
