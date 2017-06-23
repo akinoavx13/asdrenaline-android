@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import fr.free.maheo.maxime.as_drenaline.R;
 import fr.free.maheo.maxime.as_drenaline.data.model.Category;
+import fr.free.maheo.maxime.as_drenaline.util.ui.DividerItemDecoration;
 
 /**
  * Created by mmaheo on 21/06/2017.
@@ -52,6 +53,9 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         categoryRecyclerView.setLayoutManager(layoutManager);
         categoryRecyclerView.setAdapter(adapter);
         categoryRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(8);
+        categoryRecyclerView.addItemDecoration(dividerItemDecoration);
 
         refreshLayout.setOnRefreshListener(() -> presenter.subscribe());
 
