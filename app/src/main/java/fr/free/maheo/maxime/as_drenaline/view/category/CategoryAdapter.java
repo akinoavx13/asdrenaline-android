@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import fr.free.maheo.maxime.as_drenaline.R;
 import fr.free.maheo.maxime.as_drenaline.data.model.Category;
 import fr.free.maheo.maxime.as_drenaline.util.AndroidApplication;
+import fr.free.maheo.maxime.as_drenaline.view.BaseRecyclerViewAdapter;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -33,7 +34,7 @@ import retrofit2.Retrofit;
  * Created by mmaheo on 21/06/2017.
  */
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryAdapter.CategoryViewHolder> {
 
     class CategoryViewHolder extends RecyclerView.ViewHolder {
 
@@ -65,8 +66,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     @Override
-    public void onBindViewHolder(CategoryViewHolder holder, int position) {
-        Category category = categories.get(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+        super.onBindViewHolder(viewHolder, i);
+        CategoryViewHolder holder = (CategoryViewHolder) viewHolder;
+        Category category = categories.get(i);
         holder.categoryTitle.setText(category.getName());
 
         Glide.with(AndroidApplication.getAppContext())

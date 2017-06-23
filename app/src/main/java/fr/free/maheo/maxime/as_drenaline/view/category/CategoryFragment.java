@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import fr.free.maheo.maxime.as_drenaline.util.ui.DividerItemDecoration;
  */
 
 public class CategoryFragment extends Fragment implements CategoryContract.View {
+
+    private final String TAG = this.getClass().getSimpleName();
 
     private CategoryContract.Presenter presenter;
 
@@ -49,6 +52,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         unbinder = ButterKnife.bind(this, root);
 
         adapter = new CategoryAdapter(new ArrayList<>());
+        adapter.setOnItemClickListener((view, position) -> Log.d(TAG, "Click on item position : " + position));
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         categoryRecyclerView.setLayoutManager(layoutManager);
         categoryRecyclerView.setAdapter(adapter);
