@@ -16,7 +16,7 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        setTitle("AS'drénaline");
+        setTitle(getResources().getString(R.string.app_name));
 
         CategoryFragment categoryFragment = (CategoryFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_category);
 
