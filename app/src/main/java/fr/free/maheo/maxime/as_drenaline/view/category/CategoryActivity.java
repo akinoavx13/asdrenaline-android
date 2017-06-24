@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import fr.free.maheo.maxime.as_drenaline.R;
-import fr.free.maheo.maxime.as_drenaline.data.source.category.Injection;
+import fr.free.maheo.maxime.as_drenaline.data.source.Injection;
 import fr.free.maheo.maxime.as_drenaline.util.ActivityUtil;
 
 public class CategoryActivity extends AppCompatActivity {

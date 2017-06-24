@@ -1,5 +1,6 @@
 package fr.free.maheo.maxime.as_drenaline.view.category;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +21,7 @@ import butterknife.Unbinder;
 import fr.free.maheo.maxime.as_drenaline.R;
 import fr.free.maheo.maxime.as_drenaline.data.model.Category;
 import fr.free.maheo.maxime.as_drenaline.util.ui.DividerItemDecoration;
+import fr.free.maheo.maxime.as_drenaline.view.actuality.ActualityActivity;
 
 /**
  * Created by mmaheo on 21/06/2017.
@@ -52,7 +54,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         unbinder = ButterKnife.bind(this, root);
 
         adapter = new CategoryAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener((view, position) -> Log.d(TAG, "Click on item position : " + position));
+        adapter.setOnItemClickListener((view, position) -> presenter.getCategory(position));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         categoryRecyclerView.setLayoutManager(layoutManager);
@@ -112,6 +114,12 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void showActualities(Category category) {
+        Intent intent = new Intent(getContext(), ActualityActivity.class);
+        startActivity(intent);
     }
 
 }

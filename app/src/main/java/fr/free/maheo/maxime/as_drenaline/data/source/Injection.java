@@ -1,7 +1,9 @@
-package fr.free.maheo.maxime.as_drenaline.data.source.category;
+package fr.free.maheo.maxime.as_drenaline.data.source;
 
 import fr.free.maheo.maxime.as_drenaline.data.network.NetworkProvider;
+import fr.free.maheo.maxime.as_drenaline.data.source.actuality.ActualityDataSource;
 import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryDataSource;
+import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryRepository;
 import fr.free.maheo.maxime.as_drenaline.data.source.category.remote.CategoryRemoteDataSource;
 import fr.free.maheo.maxime.as_drenaline.util.scheduler.BaseSchedulerProvider;
 import fr.free.maheo.maxime.as_drenaline.util.scheduler.SchedulerProvider;
@@ -16,12 +18,15 @@ public class Injection {
         return SchedulerProvider.getInstance();
     }
 
-    public static CategoryDataSource provideNetworkManager() {
-        return NetworkProvider.getInstance().getManager();
+    public static CategoryDataSource provideCategoryNetworkManager() {
+        return NetworkProvider.getInstance().getCategoryManager();
     }
 
     public static CategoryDataSource provideCategoryRepository() {
         return CategoryRepository.getInstance(CategoryRemoteDataSource.getInstance());
     }
 
+    public static ActualityDataSource provideActualityNetworkManager() {
+        return NetworkProvider.getInstance().getActualityManager();
+    }
 }

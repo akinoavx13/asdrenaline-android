@@ -3,7 +3,7 @@ package fr.free.maheo.maxime.as_drenaline.data.source.category.remote;
 import java.util.List;
 
 import fr.free.maheo.maxime.as_drenaline.data.model.Category;
-import fr.free.maheo.maxime.as_drenaline.data.source.category.Injection;
+import fr.free.maheo.maxime.as_drenaline.data.source.Injection;
 import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryDataSource;
 import io.reactivex.Observable;
 
@@ -23,7 +23,7 @@ public class CategoryRemoteDataSource implements CategoryDataSource {
 
     public static CategoryRemoteDataSource getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new CategoryRemoteDataSource(Injection.provideNetworkManager());
+            INSTANCE = new CategoryRemoteDataSource(Injection.provideCategoryNetworkManager());
         }
         return INSTANCE;
     }

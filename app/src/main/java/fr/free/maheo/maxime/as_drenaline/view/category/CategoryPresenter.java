@@ -23,6 +23,8 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
     private CategoryDataSource categoryDataSource;
 
+    private List<Category> caches;
+
     public CategoryPresenter(CategoryContract.View view, BaseSchedulerProvider baseSchedulerProvider, CategoryDataSource categoryDataSource) {
         this.view = view;
         this.schedulerProvider = baseSchedulerProvider;
@@ -42,7 +44,8 @@ public class CategoryPresenter implements CategoryContract.Presenter {
         .observeOn(schedulerProvider.ui())
         .subscribe(
                 this::onNext,
-                this::onError
+                this::onError,
+                this::onComplete
         ));
     }
 
@@ -53,7 +56,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
     @Override
     public void onNext(List<Category> categories) {
-        view.stopLoadingIndicator();
+        caches = categories;
 
         view.setCategories(categories);
     }
@@ -63,5 +66,15 @@ public class CategoryPresenter implements CategoryContract.Presenter {
         view.stopLoadingIndicator();
 
         view.error();
+    }
+
+    @Override
+    public void onComplete() {
+        view.stopLoadingIndicator();
+    }
+
+    @Override
+    public void getCategory(int position) {
+        view.showActualities(caches.get(position));
     }
 }

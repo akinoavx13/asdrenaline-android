@@ -1,5 +1,6 @@
 package fr.free.maheo.maxime.as_drenaline.data.network;
 
+import fr.free.maheo.maxime.as_drenaline.data.source.actuality.ActualityDataSource;
 import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryDataSource;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -17,6 +18,8 @@ public class NetworkProvider {
 
     private CategoryDataSource categoryDataSource;
 
+    private ActualityDataSource actualityDataSource;
+
     public NetworkProvider() {
         categoryDataSource = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -24,6 +27,13 @@ public class NetworkProvider {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(CategoryDataSource.class);
+
+        actualityDataSource = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ActualityDataSource.class);
     }
 
     public static NetworkProvider getInstance() {
@@ -33,7 +43,11 @@ public class NetworkProvider {
         return INSTANCE;
     }
 
-    public CategoryDataSource getManager() {
+    public CategoryDataSource getCategoryManager() {
         return categoryDataSource;
+    }
+
+    public ActualityDataSource getActualityManager() {
+        return actualityDataSource;
     }
 }

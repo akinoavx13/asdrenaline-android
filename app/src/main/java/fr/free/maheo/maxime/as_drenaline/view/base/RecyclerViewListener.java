@@ -1,4 +1,4 @@
-package fr.free.maheo.maxime.as_drenaline.view;
+package fr.free.maheo.maxime.as_drenaline.view.base;
 
 import android.view.View;
 

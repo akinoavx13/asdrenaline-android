@@ -12,12 +12,24 @@ import java.io.InputStream;
 public class Category {
 
     @Expose
+    @SerializedName("id")
+    private int id;
+
+    @Expose
     @SerializedName("name")
     private String name;
 
     @Expose
     @SerializedName("image")
     private String imageUrl;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
