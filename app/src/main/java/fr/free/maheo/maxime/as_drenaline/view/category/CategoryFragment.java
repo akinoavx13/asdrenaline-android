@@ -65,9 +65,6 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         categoryRecyclerView.setAdapter(adapter);
         categoryRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(8);
-        categoryRecyclerView.addItemDecoration(dividerItemDecoration);
-
         refreshLayout.setOnRefreshListener(() -> presenter.subscribe());
 
         return root;

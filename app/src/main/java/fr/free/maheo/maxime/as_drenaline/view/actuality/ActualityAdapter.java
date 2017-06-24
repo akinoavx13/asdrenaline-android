@@ -30,6 +30,12 @@ public class ActualityAdapter extends BaseRecyclerViewAdapter<ActualityAdapter.A
         @BindView(R.id.actuality_title)
         TextView actualityTitle;
 
+        @BindView(R.id.actuality_content_preview)
+        TextView actualityContentPreview;
+
+        @BindView(R.id.actuality_background)
+        ImageView actualityBackground;
+
         public ActualityAViewHolder(View itemView) {
             super(itemView);
 
@@ -56,7 +62,22 @@ public class ActualityAdapter extends BaseRecyclerViewAdapter<ActualityAdapter.A
         super.onBindViewHolder(viewHolder, i);
         ActualityAViewHolder holder = (ActualityAViewHolder) viewHolder;
         Actuality actuality = actualities.get(i);
+
         holder.actualityTitle.setText(actuality.getTitle());
+
+        String contentPreview = actuality.getContent().replace('\n', ' ').substring(0, actuality.getContent().length() > 150 ? 150 : actuality.getContent().length()) + " ...";
+        holder.actualityContentPreview.setText(contentPreview);
+
+        if(!actuality.getImageUrl().equals("")) {
+            holder.actualityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            Glide.with(AndroidApplication.getAppContext())
+                    .load(actuality.getImageUrl())
+                    .into(holder.actualityBackground);
+        } else {
+            holder.actualityBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            holder.actualityBackground.setImageResource(R.drawable.logo);
+        }
+
     }
 
     @Override
