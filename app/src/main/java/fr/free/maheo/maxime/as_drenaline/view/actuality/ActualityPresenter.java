@@ -64,7 +64,7 @@ public class ActualityPresenter implements ActualityContract.Presenter {
     public void onNext(List<Actuality> actualities) {
         caches = actualities;
 
-        Log.d(TAG, "actualities : " + caches.size());
+        view.setActualities(actualities);
     }
 
     @Override

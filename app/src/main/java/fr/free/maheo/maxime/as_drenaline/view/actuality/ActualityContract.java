@@ -21,6 +21,8 @@ public interface ActualityContract {
 
         void stopLoadingIndicator();
 
+        void setActualities(List<Actuality> actualities);
+
     }
 
     interface Presenter extends BasePresenter {

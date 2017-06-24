@@ -70,9 +70,9 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryAdapter.Cat
         return categories.size();
     }
 
-    public void replaceData(List<Category> questions) {
-        categories.clear();
-        categories.addAll(questions);
+    public void replaceData(List<Category> categories) {
+        this.categories.clear();
+        this.categories.addAll(categories);
         notifyDataSetChanged();
     }
 }
