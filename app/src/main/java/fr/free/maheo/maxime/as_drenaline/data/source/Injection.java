@@ -2,6 +2,8 @@ package fr.free.maheo.maxime.as_drenaline.data.source;
 
 import fr.free.maheo.maxime.as_drenaline.data.network.NetworkProvider;
 import fr.free.maheo.maxime.as_drenaline.data.source.actuality.ActualityDataSource;
+import fr.free.maheo.maxime.as_drenaline.data.source.actuality.ActualityRepository;
+import fr.free.maheo.maxime.as_drenaline.data.source.actuality.remote.ActualityRemoteDataSource;
 import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryDataSource;
 import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryRepository;
 import fr.free.maheo.maxime.as_drenaline.data.source.category.remote.CategoryRemoteDataSource;
@@ -28,5 +30,9 @@ public class Injection {
 
     public static ActualityDataSource provideActualityNetworkManager() {
         return NetworkProvider.getInstance().getActualityManager();
+    }
+
+    public static ActualityDataSource provideActualityRepository() {
+        return ActualityRepository.getInstance(ActualityRemoteDataSource.getInstance());
     }
 }

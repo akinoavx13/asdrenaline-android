@@ -33,6 +33,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
 
     public static final String EXTRA_CATEGORY_NAME = CategoryFragment.class.getPackage().getName() + ".CATEGORY_NAME";
 
+    public static final String EXTRA_CATEGORY_ID = CategoryFragment.class.getPackage().getName() + ".CATEGORY_ID";
+
     private CategoryContract.Presenter presenter;
 
     private Unbinder unbinder;
@@ -122,6 +124,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     public void showActualities(Category category) {
         Intent intent = new Intent(getContext(), ActualityActivity.class);
         intent.putExtra(CategoryFragment.EXTRA_CATEGORY_NAME, category.getName());
+        intent.putExtra(CategoryFragment.EXTRA_CATEGORY_ID, String.valueOf(category.getId()));
         startActivity(intent);
     }
 

@@ -1,34 +1,40 @@
-package fr.free.maheo.maxime.as_drenaline.view.category;
+package fr.free.maheo.maxime.as_drenaline.view.actuality;
 
 import android.util.Log;
 
 import java.util.List;
 
-import fr.free.maheo.maxime.as_drenaline.data.model.Category;
-import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryDataSource;
+import fr.free.maheo.maxime.as_drenaline.data.model.Actuality;
+import fr.free.maheo.maxime.as_drenaline.data.source.actuality.ActualityDataSource;
 import fr.free.maheo.maxime.as_drenaline.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
+import retrofit2.http.Path;
 
 /**
- * Created by mmaheo on 21/06/2017.
+ * Created by mmaheo on 24/06/2017.
  */
 
-public class CategoryPresenter implements CategoryContract.Presenter {
+public class ActualityPresenter implements ActualityContract.Presenter {
 
-    private CategoryContract.View view;
+    public static final String TAG = ActualityPresenter.class.getSimpleName();
+
+    private ActualityContract.View view;
 
     private CompositeDisposable subscription;
 
     private BaseSchedulerProvider schedulerProvider;
 
-    private CategoryDataSource categoryDataSource;
+    private ActualityDataSource actualityDataSource;
 
-    private List<Category> caches;
+    private List<Actuality> caches;
 
-    public CategoryPresenter(CategoryContract.View view, BaseSchedulerProvider baseSchedulerProvider, CategoryDataSource categoryDataSource) {
+    private String categoryId;
+
+    public ActualityPresenter(ActualityContract.View view, BaseSchedulerProvider baseSchedulerProvider, ActualityDataSource actualityDataSource, String categoryId) {
         this.view = view;
         this.schedulerProvider = baseSchedulerProvider;
-        this.categoryDataSource = categoryDataSource;
+        this.actualityDataSource = actualityDataSource;
+        this.categoryId = categoryId;
 
         subscription = new CompositeDisposable();
         view.setPresenter(this);
@@ -38,8 +44,8 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     public void subscribe() {
         view.startLoadingIndicator();
 
-        subscription.add(categoryDataSource
-                .getCategories()
+        subscription.add(actualityDataSource
+                .getActualities(categoryId)
                 .subscribeOn(schedulerProvider.computation())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(
@@ -55,10 +61,10 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     }
 
     @Override
-    public void onNext(List<Category> categories) {
-        caches = categories;
+    public void onNext(List<Actuality> actualities) {
+        caches = actualities;
 
-        view.setCategories(categories);
+        Log.d(TAG, "actualities : " + caches.size());
     }
 
     @Override
@@ -71,10 +77,5 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     @Override
     public void onComplete() {
         view.stopLoadingIndicator();
-    }
-
-    @Override
-    public void getCategory(int position) {
-        view.showActualities(caches.get(position));
     }
 }
