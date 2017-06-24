@@ -29,7 +29,9 @@ import fr.free.maheo.maxime.as_drenaline.view.actuality.ActualityActivity;
 
 public class CategoryFragment extends Fragment implements CategoryContract.View {
 
-    private final String TAG = this.getClass().getSimpleName();
+    public static final String TAG = CategoryFragment.class.getSimpleName();
+
+    public static final String EXTRA_CATEGORY_NAME = CategoryFragment.class.getPackage().getName() + ".CATEGORY_NAME";
 
     private CategoryContract.Presenter presenter;
 
@@ -119,6 +121,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void showActualities(Category category) {
         Intent intent = new Intent(getContext(), ActualityActivity.class);
+        intent.putExtra(CategoryFragment.EXTRA_CATEGORY_NAME, category.getName());
         startActivity(intent);
     }
 

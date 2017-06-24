@@ -16,9 +16,7 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        setTitle("AS'drénaline");
 
         CategoryFragment categoryFragment = (CategoryFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_category);
 

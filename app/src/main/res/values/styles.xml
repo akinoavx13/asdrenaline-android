@@ -9,8 +9,4 @@
 
     </style>
 
-    <style name="NoActionBar" parent="AppTheme">
-        <item name="windowActionBar">false</item>
-    </style>
-
 </resources>
