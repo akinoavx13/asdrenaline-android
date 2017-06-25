@@ -1,13 +1,20 @@
 package fr.free.maheo.maxime.as_drenaline.view.category;
 
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -31,6 +38,9 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryAdapter.Cat
 
         @BindView(R.id.category_background)
         ImageView categoryBackground;
+
+        @BindView(R.id.category_progress_bar)
+        ProgressBar categoryProgressBar;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
@@ -62,6 +72,22 @@ public class CategoryAdapter extends BaseRecyclerViewAdapter<CategoryAdapter.Cat
 
         Glide.with(AndroidApplication.getAppContext())
                 .load(category.getImageUrl())
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        holder.categoryBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        holder.categoryBackground.setImageResource(R.drawable.logo);
+                        holder.categoryProgressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        holder.categoryBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        holder.categoryProgressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
                 .into(holder.categoryBackground);
     }
 

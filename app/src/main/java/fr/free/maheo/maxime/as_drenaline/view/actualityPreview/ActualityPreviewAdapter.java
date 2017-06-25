@@ -1,13 +1,20 @@
 package fr.free.maheo.maxime.as_drenaline.view.actualityPreview;
 
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -34,6 +41,9 @@ public class ActualityPreviewAdapter extends BaseRecyclerViewAdapter<ActualityPr
 
         @BindView(R.id.actuality_preview_background)
         ImageView actualityPreviewBackground;
+
+        @BindView(R.id.actuality_preview_progress_bar)
+        ProgressBar actualityPreviewProgressBar;
 
         public ActualityAViewHolder(View itemView) {
             super(itemView);
@@ -71,10 +81,27 @@ public class ActualityPreviewAdapter extends BaseRecyclerViewAdapter<ActualityPr
             holder.actualityPreviewBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Glide.with(AndroidApplication.getAppContext())
                     .load(actuality.getImageUrl())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            holder.actualityPreviewBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            holder.actualityPreviewBackground.setImageResource(R.drawable.logo);
+                            holder.actualityPreviewProgressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            holder.actualityPreviewBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            holder.actualityPreviewProgressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
                     .into(holder.actualityPreviewBackground);
         } else {
             holder.actualityPreviewBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
             holder.actualityPreviewBackground.setImageResource(R.drawable.logo);
+            holder.actualityPreviewProgressBar.setVisibility(View.GONE);
         }
 
     }

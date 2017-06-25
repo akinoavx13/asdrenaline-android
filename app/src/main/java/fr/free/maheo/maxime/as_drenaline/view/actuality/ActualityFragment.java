@@ -1,5 +1,6 @@
 package fr.free.maheo.maxime.as_drenaline.view.actuality;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,9 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +48,9 @@ public class ActualityFragment extends Fragment implements ActualityContract.Vie
 
     @BindView(R.id.actuality_background)
     ImageView actualityBackground;
+
+    @BindView(R.id.actuality_progress_bar)
+    ProgressBar actualityProgressBar;
 
     public static ActualityFragment newInstance() {
         return new ActualityFragment();
@@ -91,10 +100,27 @@ public class ActualityFragment extends Fragment implements ActualityContract.Vie
             actualityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Glide.with(AndroidApplication.getAppContext())
                     .load(actuality.getImageUrl())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            actualityBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            actualityBackground.setImageResource(R.drawable.logo);
+                            actualityProgressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            actualityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            actualityProgressBar.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
                     .into(actualityBackground);
         } else {
             actualityBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
             actualityBackground.setImageResource(R.drawable.logo);
+            actualityProgressBar.setVisibility(View.GONE);
         }
     }
 

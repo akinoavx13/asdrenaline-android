@@ -20,6 +20,15 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ProgressBar
+            android:id="@+id/actuality_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/actuality_background"
+            app:layout_constraintLeft_toLeftOf="@+id/actuality_background"
+            app:layout_constraintRight_toRightOf="@+id/actuality_background"
+            app:layout_constraintTop_toTopOf="@+id/actuality_background" />
+
         <TextView
             android:id="@+id/actuality_title"
             android:layout_width="wrap_content"
