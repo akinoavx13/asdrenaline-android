@@ -14,9 +14,7 @@ public interface ActualityContract {
 
         void error();
 
-        void startLoadingIndicator();
-
-        void stopLoadingIndicator();
+        void setActuality(Actuality actuality);
 
     }
 
@@ -25,8 +23,6 @@ public interface ActualityContract {
         void onNext(final Actuality actuality);
 
         void onError(final Throwable error);
-
-        void onComplete();
 
     }
 

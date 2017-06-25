@@ -33,6 +33,8 @@ public class ActualityPreviewFragment extends Fragment implements ActualityPrevi
 
     public static final String TAG = ActualityPreviewFragment.class.getSimpleName();
 
+    public static final String EXTRA_ACTUALITY = ActualityPreviewFragment.class.getPackage().getName() + ".ACTUALITY";
+
     private ActualityPreviewContract.Presenter presenter;
 
     private Unbinder unbinder;
@@ -122,6 +124,7 @@ public class ActualityPreviewFragment extends Fragment implements ActualityPrevi
     @Override
     public void showActuality(Actuality actuality) {
         Intent intent = new Intent(getContext(), ActualityActivity.class);
+        intent.putExtra(EXTRA_ACTUALITY, actuality);
         startActivity(intent);
     }
 }

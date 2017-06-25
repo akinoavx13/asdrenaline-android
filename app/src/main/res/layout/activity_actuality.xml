@@ -4,6 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.actuality.ActualityActivity">
+    tools:context=".view.actuality.ActualityActivity"
+    app:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+    <fragment
+        android:id="@+id/fragment_actuality"
+        android:name="fr.free.maheo.maxime.as_drenaline.view.actuality.ActualityFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/fragment_actuality" />
 
 </android.support.constraint.ConstraintLayout>

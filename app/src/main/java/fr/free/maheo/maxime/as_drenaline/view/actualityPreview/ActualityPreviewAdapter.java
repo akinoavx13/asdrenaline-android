@@ -26,14 +26,14 @@ public class ActualityPreviewAdapter extends BaseRecyclerViewAdapter<ActualityPr
 
     class ActualityAViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.actuality_title)
-        TextView actualityTitle;
+        @BindView(R.id.actuality_preview_title)
+        TextView actualityPreviewTitle;
 
-        @BindView(R.id.actuality_content_preview)
-        TextView actualityContentPreview;
+        @BindView(R.id.actuality_preview_content_preview)
+        TextView actualityPreviewContentPreview;
 
-        @BindView(R.id.actuality_background)
-        ImageView actualityBackground;
+        @BindView(R.id.actuality_preview_background)
+        ImageView actualityPreviewBackground;
 
         public ActualityAViewHolder(View itemView) {
             super(itemView);
@@ -62,19 +62,19 @@ public class ActualityPreviewAdapter extends BaseRecyclerViewAdapter<ActualityPr
         ActualityAViewHolder holder = (ActualityAViewHolder) viewHolder;
         Actuality actuality = actualities.get(i);
 
-        holder.actualityTitle.setText(actuality.getTitle());
+        holder.actualityPreviewTitle.setText(actuality.getTitle());
 
         String contentPreview = actuality.getContent().replace('\n', ' ').substring(0, actuality.getContent().length() > 150 ? 150 : actuality.getContent().length()) + " ...";
-        holder.actualityContentPreview.setText(contentPreview);
+        holder.actualityPreviewContentPreview.setText(contentPreview);
 
         if(!actuality.getImageUrl().equals("")) {
-            holder.actualityBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            holder.actualityPreviewBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Glide.with(AndroidApplication.getAppContext())
                     .load(actuality.getImageUrl())
-                    .into(holder.actualityBackground);
+                    .into(holder.actualityPreviewBackground);
         } else {
-            holder.actualityBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            holder.actualityBackground.setImageResource(R.drawable.logo);
+            holder.actualityPreviewBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            holder.actualityPreviewBackground.setImageResource(R.drawable.logo);
         }
 
     }

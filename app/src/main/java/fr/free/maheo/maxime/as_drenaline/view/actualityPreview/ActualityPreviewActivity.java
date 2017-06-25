@@ -24,12 +24,12 @@ public class ActualityPreviewActivity extends AppCompatActivity {
 
         setTitle(categoryName);
 
-        ActualityPreviewFragment actualityPreviewFragment = (ActualityPreviewFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_actuality);
+        ActualityPreviewFragment actualityPreviewFragment = (ActualityPreviewFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_actualities);
 
         if(actualityPreviewFragment == null) {
             actualityPreviewFragment = ActualityPreviewFragment.newInstance();
 
-            ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), actualityPreviewFragment, R.id.fragment_actuality);
+            ActivityUtil.addFragmentToActivity(getSupportFragmentManager(), actualityPreviewFragment, R.id.fragment_actualities);
         }
 
         presenter = new ActualityPreviewPresenter(actualityPreviewFragment, Injection.provideSchedulerProvider(), Injection.provideActualityRepository(), categoryId);

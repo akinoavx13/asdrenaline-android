@@ -7,7 +7,7 @@
     tools:context=".view.actualityPreview.ActualityPreviewActivity">
 
     <fragment
-        android:id="@+id/fragment_actuality"
+        android:id="@+id/fragment_actualities"
         android:name="fr.free.maheo.maxime.as_drenaline.view.actualityPreview.ActualityPreviewFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

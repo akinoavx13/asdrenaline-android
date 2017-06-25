@@ -3,11 +3,13 @@ package fr.free.maheo.maxime.as_drenaline.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by mmaheo on 24/06/2017.
  */
 
-public class Actuality {
+public class Actuality implements Serializable {
 
     @Expose
     @SerializedName("title")
