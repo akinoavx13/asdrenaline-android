@@ -1,7 +1,5 @@
 package fr.free.maheo.maxime.as_drenaline.view.category;
 
-import android.util.Log;
-
 import java.util.List;
 
 import fr.free.maheo.maxime.as_drenaline.data.model.Category;
@@ -75,6 +73,6 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
     @Override
     public void getCategory(int position) {
-        view.showActualities(caches.get(position));
+        view.showActualitiesOfCategory(caches.get(position));
     }
 }

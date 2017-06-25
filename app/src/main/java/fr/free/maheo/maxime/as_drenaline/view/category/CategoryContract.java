@@ -22,7 +22,7 @@ public interface CategoryContract {
 
         void stopLoadingIndicator();
 
-        void showActualities(Category category);
+        void showActualitiesOfCategory(Category category);
     }
 
     interface Presenter extends BasePresenter {

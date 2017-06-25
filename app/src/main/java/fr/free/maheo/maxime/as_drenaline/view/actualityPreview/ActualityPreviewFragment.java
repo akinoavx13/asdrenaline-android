@@ -1,5 +1,6 @@
-package fr.free.maheo.maxime.as_drenaline.view.actuality;
+package fr.free.maheo.maxime.as_drenaline.view.actualityPreview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,20 +22,22 @@ import butterknife.Unbinder;
 import fr.free.maheo.maxime.as_drenaline.R;
 import fr.free.maheo.maxime.as_drenaline.data.model.Actuality;
 import fr.free.maheo.maxime.as_drenaline.util.ui.DividerItemDecoration;
+import fr.free.maheo.maxime.as_drenaline.view.actuality.ActualityActivity;
+import fr.free.maheo.maxime.as_drenaline.view.category.CategoryFragment;
 
 /**
  * Created by mmaheo on 24/06/2017.
  */
 
-public class ActualityFragment extends Fragment implements ActualityContract.View {
+public class ActualityPreviewFragment extends Fragment implements ActualityPreviewContract.View {
 
-    public static final String TAG = ActualityFragment.class.getSimpleName();
+    public static final String TAG = ActualityPreviewFragment.class.getSimpleName();
 
-    private ActualityContract.Presenter presenter;
+    private ActualityPreviewContract.Presenter presenter;
 
     private Unbinder unbinder;
 
-    private ActualityAdapter adapter;
+    private ActualityPreviewAdapter adapter;
 
     @BindView(R.id.actuality_recycler)
     RecyclerView actualityRecyclerView;
@@ -42,19 +45,19 @@ public class ActualityFragment extends Fragment implements ActualityContract.Vie
     @BindView(R.id.actuality_refresh)
     SwipeRefreshLayout refreshLayout;
 
-    public static ActualityFragment newInstance() {
-        return new ActualityFragment();
+    public static ActualityPreviewFragment newInstance() {
+        return new ActualityPreviewFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_actuality, container, false);
+        View root = inflater.inflate(R.layout.fragment_actualities, container, false);
 
         unbinder = ButterKnife.bind(this, root);
 
-        adapter = new ActualityAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener((view, position) -> Log.d(TAG, "click on item position : " + position));
+        adapter = new ActualityPreviewAdapter(new ArrayList<>());
+        adapter.setOnItemClickListener((view, position) -> presenter.getActuality(position));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         actualityRecyclerView.setLayoutManager(layoutManager);
@@ -88,7 +91,7 @@ public class ActualityFragment extends Fragment implements ActualityContract.Vie
     }
 
     @Override
-    public void setPresenter(ActualityContract.Presenter presenter) {
+    public void setPresenter(ActualityPreviewContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -114,5 +117,11 @@ public class ActualityFragment extends Fragment implements ActualityContract.Vie
         if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void showActuality(Actuality actuality) {
+        Intent intent = new Intent(getContext(), ActualityActivity.class);
+        startActivity(intent);
     }
 }

@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.free.maheo.maxime.as_drenaline.view.category.CategoryActivity">
-
+    tools:context=".view.actualityPreview.ActualityPreviewActivity">
 
     <fragment
-        android:id="@+id/fragment_category"
-        android:name="fr.free.maheo.maxime.as_drenaline.view.category.CategoryFragment"
+        android:id="@+id/fragment_actuality"
+        android:name="fr.free.maheo.maxime.as_drenaline.view.actualityPreview.ActualityPreviewFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_actualities" />
 
 </android.support.constraint.ConstraintLayout>

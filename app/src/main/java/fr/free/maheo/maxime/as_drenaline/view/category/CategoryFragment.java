@@ -7,7 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import fr.free.maheo.maxime.as_drenaline.R;
 import fr.free.maheo.maxime.as_drenaline.data.model.Category;
-import fr.free.maheo.maxime.as_drenaline.util.ui.DividerItemDecoration;
-import fr.free.maheo.maxime.as_drenaline.view.actuality.ActualityActivity;
+import fr.free.maheo.maxime.as_drenaline.view.actualityPreview.ActualityPreviewActivity;
 
 /**
  * Created by mmaheo on 21/06/2017.
@@ -53,7 +51,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_category, container, false);
+        View root = inflater.inflate(R.layout.fragment_categories, container, false);
 
         unbinder = ButterKnife.bind(this, root);
 
@@ -118,8 +116,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     }
 
     @Override
-    public void showActualities(Category category) {
-        Intent intent = new Intent(getContext(), ActualityActivity.class);
+    public void showActualitiesOfCategory(Category category) {
+        Intent intent = new Intent(getContext(), ActualityPreviewActivity.class);
         intent.putExtra(CategoryFragment.EXTRA_CATEGORY_NAME, category.getName());
         intent.putExtra(CategoryFragment.EXTRA_CATEGORY_ID, String.valueOf(category.getId()));
         startActivity(intent);

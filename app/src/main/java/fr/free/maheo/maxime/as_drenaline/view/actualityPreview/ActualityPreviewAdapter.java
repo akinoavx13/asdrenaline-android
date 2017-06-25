@@ -1,4 +1,4 @@
-package fr.free.maheo.maxime.as_drenaline.view.actuality;
+package fr.free.maheo.maxime.as_drenaline.view.actualityPreview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +15,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import fr.free.maheo.maxime.as_drenaline.R;
 import fr.free.maheo.maxime.as_drenaline.data.model.Actuality;
-import fr.free.maheo.maxime.as_drenaline.data.model.Category;
 import fr.free.maheo.maxime.as_drenaline.util.AndroidApplication;
 import fr.free.maheo.maxime.as_drenaline.view.base.BaseRecyclerViewAdapter;
 
@@ -23,7 +22,7 @@ import fr.free.maheo.maxime.as_drenaline.view.base.BaseRecyclerViewAdapter;
  * Created by mmaheo on 21/06/2017.
  */
 
-public class ActualityAdapter extends BaseRecyclerViewAdapter<ActualityAdapter.ActualityAViewHolder> {
+public class ActualityPreviewAdapter extends BaseRecyclerViewAdapter<ActualityPreviewAdapter.ActualityAViewHolder> {
 
     class ActualityAViewHolder extends RecyclerView.ViewHolder {
 
@@ -45,7 +44,7 @@ public class ActualityAdapter extends BaseRecyclerViewAdapter<ActualityAdapter.A
 
     private List<Actuality> actualities;
 
-    public ActualityAdapter(List<Actuality> actualities) {
+    public ActualityPreviewAdapter(List<Actuality> actualities) {
         this.actualities = actualities;
     }
 

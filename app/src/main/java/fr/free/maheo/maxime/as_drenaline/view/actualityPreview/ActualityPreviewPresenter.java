@@ -1,6 +1,4 @@
-package fr.free.maheo.maxime.as_drenaline.view.actuality;
-
-import android.util.Log;
+package fr.free.maheo.maxime.as_drenaline.view.actualityPreview;
 
 import java.util.List;
 
@@ -8,17 +6,16 @@ import fr.free.maheo.maxime.as_drenaline.data.model.Actuality;
 import fr.free.maheo.maxime.as_drenaline.data.source.actuality.ActualityDataSource;
 import fr.free.maheo.maxime.as_drenaline.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
-import retrofit2.http.Path;
 
 /**
  * Created by mmaheo on 24/06/2017.
  */
 
-public class ActualityPresenter implements ActualityContract.Presenter {
+public class ActualityPreviewPresenter implements ActualityPreviewContract.Presenter {
 
-    public static final String TAG = ActualityPresenter.class.getSimpleName();
+    public static final String TAG = ActualityPreviewPresenter.class.getSimpleName();
 
-    private ActualityContract.View view;
+    private ActualityPreviewContract.View view;
 
     private CompositeDisposable subscription;
 
@@ -30,7 +27,7 @@ public class ActualityPresenter implements ActualityContract.Presenter {
 
     private String categoryId;
 
-    public ActualityPresenter(ActualityContract.View view, BaseSchedulerProvider baseSchedulerProvider, ActualityDataSource actualityDataSource, String categoryId) {
+    public ActualityPreviewPresenter(ActualityPreviewContract.View view, BaseSchedulerProvider baseSchedulerProvider, ActualityDataSource actualityDataSource, String categoryId) {
         this.view = view;
         this.schedulerProvider = baseSchedulerProvider;
         this.actualityDataSource = actualityDataSource;
@@ -78,4 +75,10 @@ public class ActualityPresenter implements ActualityContract.Presenter {
     public void onComplete() {
         view.stopLoadingIndicator();
     }
+
+    @Override
+    public void getActuality(int position) {
+        view.showActuality(caches.get(position));
+    }
+
 }
