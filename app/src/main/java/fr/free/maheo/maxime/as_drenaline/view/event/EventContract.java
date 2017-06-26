@@ -23,6 +23,8 @@ public interface EventContract {
 
         void setEvents(List<Event> events);
 
+        void showAddress(Event event);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -32,6 +34,8 @@ public interface EventContract {
         void onError(final Throwable error);
 
         void onComplete();
+
+        void getAddress(int position);
 
     }
 

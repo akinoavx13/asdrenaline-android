@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -46,6 +47,9 @@ public class ActualityPreviewFragment extends Fragment implements ActualityPrevi
     @BindView(R.id.actuality_refresh)
     SwipeRefreshLayout refreshLayout;
 
+    @BindView(R.id.actualities_empty)
+    TextView actualitiesEmpty;
+
     public static ActualityPreviewFragment newInstance() {
         return new ActualityPreviewFragment();
     }
@@ -66,6 +70,8 @@ public class ActualityPreviewFragment extends Fragment implements ActualityPrevi
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         refreshLayout.setOnRefreshListener(() -> presenter.subscribe());
+
+        actualitiesEmpty.setVisibility(View.GONE);
 
         return root;
     }
@@ -95,7 +101,12 @@ public class ActualityPreviewFragment extends Fragment implements ActualityPrevi
 
     @Override
     public void setActualities(List<Actuality> actualities) {
-        adapter.replaceData(actualities);
+        if (actualities.size() == 0) {
+            actualitiesEmpty.setVisibility(View.VISIBLE);
+        } else {
+            actualitiesEmpty.setVisibility(View.GONE);
+            adapter.replaceData(actualities);
+        }
     }
 
     @Override

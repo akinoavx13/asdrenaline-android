@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -46,6 +47,9 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @BindView(R.id.category_refresh)
     SwipeRefreshLayout refreshLayout;
 
+    @BindView(R.id.category_empty)
+    TextView categoryEmpty;
+
     public static CategoryFragment newInstance() {
         return new CategoryFragment();
     }
@@ -65,6 +69,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         categoryRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         refreshLayout.setOnRefreshListener(() -> presenter.subscribe());
+
+        categoryEmpty.setVisibility(View.GONE);
 
         return root;
     }
@@ -94,7 +100,13 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
 
     @Override
     public void setCategories(List<Category> categories) {
-        adapter.replaceData(categories);
+        if (categories.size() == 0) {
+            categoryEmpty.setVisibility(View.VISIBLE);
+        } else {
+            categoryEmpty.setVisibility(View.GONE);
+            adapter.replaceData(categories);
+        }
+
     }
 
     @Override

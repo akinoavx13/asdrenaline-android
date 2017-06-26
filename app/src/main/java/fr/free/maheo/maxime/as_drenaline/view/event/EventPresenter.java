@@ -71,4 +71,9 @@ public class EventPresenter implements EventContract.Presenter {
     public void onComplete() {
         view.stopLoadingIndicator();
     }
+
+    @Override
+    public void getAddress(int position) {
+        view.showAddress(caches.get(position));
+    }
 }

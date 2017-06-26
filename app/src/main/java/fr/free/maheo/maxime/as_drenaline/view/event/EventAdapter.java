@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,7 +64,18 @@ public class EventAdapter extends BaseRecyclerViewAdapter<EventAdapter.EventView
 
         holder.title.setText(event.getTitle());
         holder.location.setText(event.getLocation());
-        holder.date.setText(event.getDate());
+
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = parser.parse(event.getDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = formatter.format(date);
+
+        holder.date.setText(formattedDate);
     }
 
     @Override

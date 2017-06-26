@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/event_no_event"
+        android:id="@+id/event_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

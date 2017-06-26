@@ -12,31 +12,15 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.event.EventActivity">
+        <activity android:name=".view.category.CategoryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".view.actualityPreview.ActualityPreviewActivity"
-            android:parentActivityName=".view.event.EventActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.event.EventActivity" />
-        </activity>
-        <activity android:name=".view.actuality.ActualityActivity" />
-        <activity android:name=".view.category.CategoryActivity"></activity>
-        <!--<activity android:name=".view.category.CategoryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>-->
-
-        <!--<activity
             android:name=".view.actualityPreview.ActualityPreviewActivity"
             android:parentActivityName=".view.category.CategoryActivity">
             <meta-data
@@ -44,7 +28,7 @@
                 android:value=".view.category.CategoryActivity" />
         </activity>
         <activity android:name=".view.actuality.ActualityActivity" />
-        <activity android:name=".view.event.EventActivity"></activity>-->
+        <activity android:name=".view.event.EventActivity"></activity>
     </application>
 
 </manifest>

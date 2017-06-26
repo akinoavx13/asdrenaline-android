@@ -4,6 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/category_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Pas de catégorie pour le moment"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/category_refresh"
         android:layout_width="match_parent"

@@ -1,5 +1,7 @@
 package fr.free.maheo.maxime.as_drenaline.view.event;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +42,8 @@ public class EventFragment extends Fragment implements EventContract.View {
     @BindView(R.id.event_refresh)
     SwipeRefreshLayout refreshLayout;
 
-    @BindView(R.id.event_no_event)
-    TextView noEventTextView;
+    @BindView(R.id.event_empty)
+    TextView eventEmpty;
 
     public static EventFragment newInstance() {
         return new EventFragment();
@@ -56,8 +57,7 @@ public class EventFragment extends Fragment implements EventContract.View {
         unbinder = ButterKnife.bind(this, root);
 
         adapter = new EventAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener((view, position) -> {
-        });
+        adapter.setOnItemClickListener((view, position) -> presenter.getAddress(position));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -65,6 +65,8 @@ public class EventFragment extends Fragment implements EventContract.View {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         refreshLayout.setOnRefreshListener(() -> presenter.subscribe());
+
+        eventEmpty.setVisibility(View.GONE);
 
         return root;
     }
@@ -95,9 +97,9 @@ public class EventFragment extends Fragment implements EventContract.View {
     @Override
     public void setEvents(List<Event> events) {
         if (events.size() == 0) {
-            noEventTextView.setVisibility(View.VISIBLE);
+            eventEmpty.setVisibility(View.VISIBLE);
         } else {
-            noEventTextView.setVisibility(View.GONE);
+            eventEmpty.setVisibility(View.GONE);
             adapter.replaceData(events);
         }
     }
@@ -119,6 +121,14 @@ public class EventFragment extends Fragment implements EventContract.View {
         if (refreshLayout.isRefreshing()) {
             refreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void showAddress(Event event) {
+        String map = "http://maps.google.co.in/maps?q=" + event.getLocation();
+
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+        startActivity(i);
     }
 
 }
