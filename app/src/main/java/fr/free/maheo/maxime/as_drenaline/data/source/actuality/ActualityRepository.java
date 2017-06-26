@@ -20,19 +20,19 @@ public class ActualityRepository implements ActualityDataSource {
         this.remoteDataSource = remoteDataSource;
     }
 
-    public static ActualityRepository getInstance(final ActualityDataSource localDataSource) {
+    public static ActualityRepository getInstance(final ActualityDataSource remoteDataSource) {
         if (INSTANCE == null) {
-            INSTANCE = new ActualityRepository(localDataSource);
+            INSTANCE = new ActualityRepository(remoteDataSource);
         }
         return INSTANCE;
-    }
-
-    private Observable<List<Actuality>> getRemoteActualities(@Path("categoryId") String categoryId) {
-        return remoteDataSource.getActualities(categoryId);
     }
 
     @Override
     public Observable<List<Actuality>> getActualities(@Path("categoryId") String categoryId) {
         return getRemoteActualities(categoryId);
+    }
+
+    private Observable<List<Actuality>> getRemoteActualities(@Path("categoryId") String categoryId) {
+        return remoteDataSource.getActualities(categoryId);
     }
 }

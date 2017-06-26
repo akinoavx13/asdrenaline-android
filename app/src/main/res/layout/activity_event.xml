@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.actuality.ActualityActivity"
-    app:theme="@style/Theme.AppCompat.Light.NoActionBar">
+    tools:context="fr.free.maheo.maxime.as_drenaline.view.event.EventActivity">
 
     <fragment
-        android:id="@+id/fragment_actuality"
-        android:name="fr.free.maheo.maxime.as_drenaline.view.actuality.ActualityFragment"
+        android:id="@+id/fragment_event"
+        android:name="fr.free.maheo.maxime.as_drenaline.view.event.EventFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_actuality" />
+        tools:layout="@layout/fragment_event" />
 
 </android.support.constraint.ConstraintLayout>

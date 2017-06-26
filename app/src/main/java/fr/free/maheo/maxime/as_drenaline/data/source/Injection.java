@@ -1,5 +1,6 @@
 package fr.free.maheo.maxime.as_drenaline.data.source;
 
+import fr.free.maheo.maxime.as_drenaline.data.model.Event;
 import fr.free.maheo.maxime.as_drenaline.data.network.NetworkProvider;
 import fr.free.maheo.maxime.as_drenaline.data.source.actuality.ActualityDataSource;
 import fr.free.maheo.maxime.as_drenaline.data.source.actuality.ActualityRepository;
@@ -7,6 +8,9 @@ import fr.free.maheo.maxime.as_drenaline.data.source.actuality.remote.ActualityR
 import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryDataSource;
 import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryRepository;
 import fr.free.maheo.maxime.as_drenaline.data.source.category.remote.CategoryRemoteDataSource;
+import fr.free.maheo.maxime.as_drenaline.data.source.event.EventDataSource;
+import fr.free.maheo.maxime.as_drenaline.data.source.event.EventRepository;
+import fr.free.maheo.maxime.as_drenaline.data.source.event.remote.EventRemoteDataSource;
 import fr.free.maheo.maxime.as_drenaline.util.scheduler.BaseSchedulerProvider;
 import fr.free.maheo.maxime.as_drenaline.util.scheduler.SchedulerProvider;
 
@@ -34,5 +38,13 @@ public class Injection {
 
     public static ActualityDataSource provideActualityRepository() {
         return ActualityRepository.getInstance(ActualityRemoteDataSource.getInstance());
+    }
+
+    public static EventDataSource provideEventNetworkManager() {
+        return NetworkProvider.getInstance().getEventManager();
+    }
+
+    public static EventDataSource provideEventRepository() {
+        return EventRepository.getInstance(EventRemoteDataSource.getInstance());
     }
 }

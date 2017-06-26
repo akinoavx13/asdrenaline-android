@@ -1,7 +1,11 @@
 package fr.free.maheo.maxime.as_drenaline.data.network;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import fr.free.maheo.maxime.as_drenaline.data.source.actuality.ActualityDataSource;
 import fr.free.maheo.maxime.as_drenaline.data.source.category.CategoryDataSource;
+import fr.free.maheo.maxime.as_drenaline.data.source.event.EventDataSource;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -20,6 +24,8 @@ public class NetworkProvider {
 
     private ActualityDataSource actualityDataSource;
 
+    private EventDataSource eventDataSource;
+
     public NetworkProvider() {
         categoryDataSource = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -34,6 +40,13 @@ public class NetworkProvider {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ActualityDataSource.class);
+
+        eventDataSource = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(EventDataSource.class);
     }
 
     public static NetworkProvider getInstance() {
@@ -49,5 +62,9 @@ public class NetworkProvider {
 
     public ActualityDataSource getActualityManager() {
         return actualityDataSource;
+    }
+
+    public EventDataSource getEventManager() {
+        return eventDataSource;
     }
 }

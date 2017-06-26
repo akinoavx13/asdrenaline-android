@@ -1,6 +1,5 @@
-package fr.free.maheo.maxime.as_drenaline.view.actualityPreview;
+package fr.free.maheo.maxime.as_drenaline.view.event;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,9 +7,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,45 +21,43 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import fr.free.maheo.maxime.as_drenaline.R;
-import fr.free.maheo.maxime.as_drenaline.data.model.Actuality;
-import fr.free.maheo.maxime.as_drenaline.util.ui.DividerItemDecoration;
-import fr.free.maheo.maxime.as_drenaline.view.actuality.ActualityActivity;
+import fr.free.maheo.maxime.as_drenaline.data.model.Event;
 
 /**
- * Created by mmaheo on 24/06/2017.
+ * Created by mmaheo on 26/06/2017.
  */
 
-public class ActualityPreviewFragment extends Fragment implements ActualityPreviewContract.View {
+public class EventFragment extends Fragment implements EventContract.View {
 
-    public static final String TAG = ActualityPreviewFragment.class.getSimpleName();
-
-    public static final String EXTRA_ACTUALITY = ActualityPreviewFragment.class.getPackage().getName() + ".ACTUALITY";
-
-    private ActualityPreviewContract.Presenter presenter;
+    private EventContract.Presenter presenter;
 
     private Unbinder unbinder;
 
-    private ActualityPreviewAdapter adapter;
+    private EventAdapter adapter;
 
-    @BindView(R.id.actuality_recycler)
+    @BindView(R.id.event_recycler)
     RecyclerView recyclerView;
 
-    @BindView(R.id.actuality_refresh)
+    @BindView(R.id.event_refresh)
     SwipeRefreshLayout refreshLayout;
 
-    public static ActualityPreviewFragment newInstance() {
-        return new ActualityPreviewFragment();
+    @BindView(R.id.event_no_event)
+    TextView noEventTextView;
+
+    public static EventFragment newInstance() {
+        return new EventFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_actualities, container, false);
+        View root = inflater.inflate(R.layout.fragment_event, container, false);
 
         unbinder = ButterKnife.bind(this, root);
 
-        adapter = new ActualityPreviewAdapter(new ArrayList<>());
-        adapter.setOnItemClickListener((view, position) -> presenter.getActuality(position));
+        adapter = new EventAdapter(new ArrayList<>());
+        adapter.setOnItemClickListener((view, position) -> {
+        });
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -89,13 +88,18 @@ public class ActualityPreviewFragment extends Fragment implements ActualityPrevi
     }
 
     @Override
-    public void setPresenter(ActualityPreviewContract.Presenter presenter) {
+    public void setPresenter(EventContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
     @Override
-    public void setActualities(List<Actuality> actualities) {
-        adapter.replaceData(actualities);
+    public void setEvents(List<Event> events) {
+        if (events.size() == 0) {
+            noEventTextView.setVisibility(View.VISIBLE);
+        } else {
+            noEventTextView.setVisibility(View.GONE);
+            adapter.replaceData(events);
+        }
     }
 
     @Override
@@ -117,10 +121,4 @@ public class ActualityPreviewFragment extends Fragment implements ActualityPrevi
         }
     }
 
-    @Override
-    public void showActuality(Actuality actuality) {
-        Intent intent = new Intent(getContext(), ActualityActivity.class);
-        intent.putExtra(EXTRA_ACTUALITY, actuality);
-        startActivity(intent);
-    }
 }

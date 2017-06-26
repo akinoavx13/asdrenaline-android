@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/event_card_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintLeft_toLeftOf="parent"
+        card_view:layout_constraintRight_toRightOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/event_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                tools:text="Title" />
+
+            <TextView
+                android:id="@+id/event_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="À "
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                card_view:layout_constraintLeft_toLeftOf="@+id/event_title"
+                card_view:layout_constraintTop_toBottomOf="@+id/event_title" />
+
+            <TextView
+                android:id="@+id/event_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                card_view:layout_constraintLeft_toRightOf="@+id/event_a"
+                card_view:layout_constraintTop_toTopOf="@+id/event_a"
+                tools:text="Location" />
+
+            <TextView
+                android:id="@+id/event_le"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                card_view:layout_constraintLeft_toRightOf="@+id/event_location"
+                card_view:layout_constraintTop_toTopOf="@+id/event_location"
+                android:text=", le " />
+
+            <TextView
+                android:id="@+id/event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp"
+                card_view:layout_constraintLeft_toRightOf="@+id/event_le"
+                card_view:layout_constraintTop_toTopOf="@+id/event_le"
+                tools:text="17/01/2013" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

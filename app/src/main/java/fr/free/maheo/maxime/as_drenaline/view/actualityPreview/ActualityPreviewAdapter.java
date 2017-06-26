@@ -29,23 +29,23 @@ import fr.free.maheo.maxime.as_drenaline.view.base.BaseRecyclerViewAdapter;
  * Created by mmaheo on 21/06/2017.
  */
 
-public class ActualityPreviewAdapter extends BaseRecyclerViewAdapter<ActualityPreviewAdapter.ActualityAViewHolder> {
+public class ActualityPreviewAdapter extends BaseRecyclerViewAdapter<ActualityPreviewAdapter.ActualityViewHolder> {
 
-    class ActualityAViewHolder extends RecyclerView.ViewHolder {
+    class ActualityViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.actuality_preview_title)
-        TextView actualityPreviewTitle;
+        TextView title;
 
         @BindView(R.id.actuality_preview_content_preview)
-        TextView actualityPreviewContentPreview;
+        TextView content;
 
         @BindView(R.id.actuality_preview_background)
-        ImageView actualityPreviewBackground;
+        ImageView background;
 
         @BindView(R.id.actuality_preview_progress_bar)
-        ProgressBar actualityPreviewProgressBar;
+        ProgressBar progressBar;
 
-        public ActualityAViewHolder(View itemView) {
+        public ActualityViewHolder(View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
@@ -59,49 +59,49 @@ public class ActualityPreviewAdapter extends BaseRecyclerViewAdapter<ActualityPr
     }
 
     @Override
-    public ActualityAViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ActualityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.item_actuality, parent, false);
-        return new ActualityAViewHolder(view);
+        return new ActualityViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         super.onBindViewHolder(viewHolder, i);
-        ActualityAViewHolder holder = (ActualityAViewHolder) viewHolder;
+        ActualityViewHolder holder = (ActualityViewHolder) viewHolder;
         Actuality actuality = actualities.get(i);
 
-        holder.actualityPreviewTitle.setText(actuality.getTitle());
+        holder.title.setText(actuality.getTitle());
 
         String contentPreview = actuality.getContent().replace('\n', ' ').substring(0, actuality.getContent().length() > 150 ? 150 : actuality.getContent().length()) + " ...";
-        holder.actualityPreviewContentPreview.setText(contentPreview);
+        holder.content.setText(contentPreview);
 
         if(!actuality.getImageUrl().equals("")) {
-            holder.actualityPreviewBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            holder.background.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Glide.with(AndroidApplication.getAppContext())
                     .load(actuality.getImageUrl())
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            holder.actualityPreviewBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            holder.actualityPreviewBackground.setImageResource(R.drawable.logo);
-                            holder.actualityPreviewProgressBar.setVisibility(View.GONE);
+                            holder.background.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            holder.background.setImageResource(R.drawable.logo);
+                            holder.progressBar.setVisibility(View.GONE);
                             return false;
                         }
 
                         @Override
                         public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            holder.actualityPreviewBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            holder.actualityPreviewProgressBar.setVisibility(View.GONE);
+                            holder.background.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            holder.progressBar.setVisibility(View.GONE);
                             return false;
                         }
                     })
-                    .into(holder.actualityPreviewBackground);
+                    .into(holder.background);
         } else {
-            holder.actualityPreviewBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            holder.actualityPreviewBackground.setImageResource(R.drawable.logo);
-            holder.actualityPreviewProgressBar.setVisibility(View.GONE);
+            holder.background.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            holder.background.setImageResource(R.drawable.logo);
+            holder.progressBar.setVisibility(View.GONE);
         }
 
     }
