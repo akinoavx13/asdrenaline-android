@@ -18,7 +18,7 @@ android {
         applicationId "fr.free.maheo.maxime.as_drenaline"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 4
+        versionCode 5
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
